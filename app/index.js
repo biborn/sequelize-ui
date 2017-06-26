@@ -1,17 +1,30 @@
 import React from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import store from './store'
-import ThemeProvider from 'react-toolbox/lib/ThemeProvider'
-import { theme } from 'theme'
-import Test from './components/Test'
 
-render(
-  <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      <Test />
-    </ThemeProvider>
-  </Provider>,
-  document.getElementById('app')
-)
+import { store } from 'state'
+import router, { history, routes } from 'router'
+import 'theme/global.css'
 
+const appDiv = document.getElementById('app')
+
+const renderView = view => {
+  ReactDOM.render(
+    <Provider store={store}>
+      { view }
+    </Provider>,
+    appDiv
+  )
+}
+
+const render = location => {
+  router.resolve(routes, location)
+    .then(renderView)
+    .catch(error => {
+      if (process.env.NODE_ENV === 'development') { console.error(error) }
+      router.resolve(routes, { ...location, error }).then(renderView)
+    })
+}
+
+history.listen(render)
+render(history.location)
