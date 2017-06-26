@@ -12,11 +12,17 @@ const PATHS = {
 
 module.exports = {
   app: () => {
-    const app = express().use(express.static(PATHS.public))
+    const app = express()
+
+    app.set('strict', true)
+
+    app.get('/', (_, res) => res.sendFile(PATHS.index))
 
     if (process.env.NODE_ENV !== 'production') {
       require('./dev-middleware').initialize(app)
     }
+
+    app.use(express.static(PATHS.public))
 
     app.get('*', (_, res) => res.sendFile(PATHS.index))
 
