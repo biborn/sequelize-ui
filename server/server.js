@@ -14,15 +14,12 @@ module.exports = {
   app: () => {
     const app = express()
 
-    app.set('strict', true)
-
-    app.get('/', (_, res) => res.sendFile(PATHS.index))
+    app.use('/public', express.static(PATHS.public))
 
     if (process.env.NODE_ENV !== 'production') {
       require('./dev-middleware').initialize(app)
     }
 
-    app.use(express.static(PATHS.public))
 
     app.get('*', (_, res) => res.sendFile(PATHS.index))
 

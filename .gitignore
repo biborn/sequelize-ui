@@ -7,3 +7,6 @@ npm-debug.log
 
 public/app.dev.js
 public/index.dev.html
+public/main.dev.css
+public/main.dev.css.map
+public/main.css.map
