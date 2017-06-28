@@ -1,5 +1,6 @@
+import Home from './home'
 import Demo from './demo'
 import ErrorMessage from './error-message'
 
-export { Demo, ErrorMessage }
+export { Home, Demo, ErrorMessage }
 
