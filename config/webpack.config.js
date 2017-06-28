@@ -3,6 +3,7 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const babelConfig = require('./babel.config.js')
 
 module.exports = {
   devtool: 'source-map',
@@ -12,7 +13,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, '..', 'public'),
     filename: 'app.js',
-    publicPath: '/public/'
+    publicPath: '/'
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.css', '.hbs'],
@@ -28,14 +29,7 @@ module.exports = {
         test: /\.js$/,
         exclude: path.join(__dirname, '..', 'node_modules'),
         include: path.join(__dirname, '..', 'app'),
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              extends: path.join(__dirname, '.babelrc')
-            }
-          }
-        ],
+        use: [{ loader: 'babel-loader', options: babelConfig }],
       },
       {
         test: /\.css$/,

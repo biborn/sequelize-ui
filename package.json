@@ -14,16 +14,16 @@
   },
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf public/* && NODE_ENV=production webpack --config ./config/webpack.prod.config.js --progress --colors",
+    "build": "rm -rf public/* && NODE_ENV=production webpack --config ./config/webpack.config.js --progress --colors",
     "deploy": "git push heroku master",
     "start": "NODE_ENV=production node server",
     "build:dev": "NODE_ENV=development webpack --config ./config/webpack.dev.config.js --progress --colors",
-    "start:dev": "npm run build:dev && NODE_ENV=development nodemon --ignore public --ignore app server",
+    "start:dev": "npm run build:dev && NODE_ENV=development nodemon --ignore public-dev --ignore app server",
     "lint": "eslint ."
   },
   "eslintConfig": {
     "extends": [
-      "./config/.eslintrc.json"
+      "./config/eslint.config.js"
     ]
   },
   "engines": {
@@ -62,6 +62,7 @@
     "nodemon": "^1.11.0",
     "postcss-cssnext": "^2.11.0",
     "postcss-loader": "^2.0.5",
+    "react-hot-loader": "^3.0.0-beta.7",
     "style-loader": "^0.18.1",
     "webpack": "^2.6.0",
     "webpack-dev-middleware": "^1.10.2",

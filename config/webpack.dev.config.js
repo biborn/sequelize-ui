@@ -2,7 +2,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const babelConfig = require('./babel.config')
 
 module.exports = {
   devtool: 'eval',
@@ -11,9 +11,9 @@ module.exports = {
     path.join(__dirname, '..', 'app', 'index')
   ],
   output: {
-    path: path.join(__dirname, '..', 'public'),
-    filename: 'app.dev.js',
-    publicPath: '/public/'
+    path: path.join(__dirname, '..', 'public-dev'),
+    filename: 'app.js',
+    publicPath: '/'
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.css', '.hbs'],
@@ -29,20 +29,12 @@ module.exports = {
         test: /\.js$/,
         exclude: path.join(__dirname, '..', 'node_modules'),
         include: path.join(__dirname, '..', 'app'),
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              extends: path.join(__dirname, '.babelrc')
-            }
-          }
-        ],
+        use: [{ loader: 'babel-loader', options: babelConfig }],
       },
       {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
+          test: /\.css$/,
           use: [
+            'style-loader',
             {
               loader: 'css-loader',
               options: {
@@ -60,25 +52,23 @@ module.exports = {
               }
             }
           ]
-        })
       }
     ]
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-      title: 'DEV - Sequelize UI',
-      filename: 'index.dev.html',
-      template: 'assets/index.hbs',
-      inject: false,
-      appFilePath: '/public/app.dev.js'
-    }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('development')
       }
     }),
-    new ExtractTextPlugin('[name].dev.css')
+    new HtmlWebpackPlugin({
+      title: 'DEV - Sequelize UI',
+      filename: 'index.html',
+      template: 'assets/index.hbs',
+      inject: false,
+      appFilePath: '/app.js'
+    })
   ]
 }
 
