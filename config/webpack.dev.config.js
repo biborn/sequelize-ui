@@ -32,26 +32,26 @@ module.exports = {
         use: [{ loader: 'babel-loader', options: babelConfig }],
       },
       {
-          test: /\.css$/,
-          use: [
-            'style-loader',
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true,
-                sourceMap: true,
-                importLoaders: 1,
-                localIdentName: '[name]--[local]--[hash:base64:8]',
-                camelCase: true
-              }
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                config: { path: path.join(__dirname, 'postcss.config.js') }
-              }
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              sourceMap: true,
+              importLoaders: 1,
+              localIdentName: '[name]--[local]--[hash:base64:8]',
+              camelCase: true
             }
-          ]
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              config: { path: path.join(__dirname, 'postcss.config.js') }
+            }
+          }
+        ]
       }
     ]
   },

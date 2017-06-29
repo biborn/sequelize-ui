@@ -21,7 +21,6 @@ export default class Demo extends Component {
   }
 
   render () {
-    console.log(this.context)
     const {
       demo: { counterValue },
       incrementCounter,
