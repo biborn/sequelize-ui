@@ -6,7 +6,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const babelConfig = require('./babel.config.js')
 
 module.exports = {
-  devtool: 'source-map',
   entry: [
     path.join(__dirname, '..', 'app', 'index')
   ],
