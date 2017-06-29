@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+
 import { Tab, Tabs } from 'react-toolbox/lib/tabs'
 
 import MainLayout from 'ui-library/MainLayout'
@@ -12,11 +14,14 @@ export default class Demo extends Component {
     index: 0
   }
 
+  static contextTypes = { history: PropTypes.object }
+
   handleTabChange = index => {
     this.setState({ index })
   }
 
   render () {
+    console.log(this.context)
     const {
       demo: { counterValue },
       incrementCounter,

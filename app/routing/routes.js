@@ -1,5 +1,5 @@
 import React from 'react'
-import { Demo, ErrorMessage, Home } from 'views'
+import { Demo, ErrorView, Home } from 'views'
 import { actions } from 'state'
 
 export default [
@@ -12,7 +12,7 @@ export default [
   },
   {
     path: '/error',
-    action: ({ error }) => <ErrorMessage error={error} />
+    action: ({ error }) => <ErrorView error={error} />
   },
   {
     path: '/',

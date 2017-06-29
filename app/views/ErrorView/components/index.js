@@ -7,11 +7,11 @@ const messages = {
   404: 'Sorry, we couldn\'t find that page'
 }
 
-const ErrorMessage = ({ error: { status } }) => (
+const ErrorView = ({ error: { status } }) => (
   <MainLayout>
     { messages[status] || messages.default }
   </MainLayout>
 )
 
-export default ErrorMessage
+export default ErrorView
 

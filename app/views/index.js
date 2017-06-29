@@ -1,6 +1,6 @@
-import Home from './home'
-import Demo from './demo'
-import ErrorMessage from './error-message'
+import Home from './Home'
+import Demo from './Demo'
+import ErrorView from './ErrorView'
 
-export { Home, Demo, ErrorMessage }
+export { Home, Demo, ErrorView }
 

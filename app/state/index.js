@@ -7,5 +7,4 @@ const allActions = Object.values(actions).reduce((acc, curr) => ({
 }), {})
 
 const connectAll = connect(state => state, allActions)
-
 export { store, actions, connectAll }
