@@ -1,5 +1,5 @@
 'use strict'
-const path = require('path')
+const { join } = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const babelConfig = require('./babel.config')
@@ -7,17 +7,18 @@ const babelConfig = require('./babel.config')
 module.exports = {
   devtool: 'eval',
   entry: [
-    'webpack-hot-middleware/client',
-    path.join(__dirname, '..', 'app', 'index')
+    'react-hot-loader/patch',
+    'webpack-hot-middleware/client?noInfo=false',
+    join(__dirname, '..', 'app', 'index')
   ],
   output: {
-    path: path.join(__dirname, '..', 'public-dev'),
+    path: join(__dirname, '..', 'public-dev'),
     filename: 'app.js',
     publicPath: '/'
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.css', '.hbs'],
-    modules: [path.join(__dirname, '..', 'app'), 'node_modules']
+    modules: [join(__dirname, '..', 'app'), 'node_modules']
   },
   module: {
     rules: [
@@ -27,10 +28,15 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        exclude: path.join(__dirname, '..', 'node_modules'),
-        include: path.join(__dirname, '..', 'app'),
-        use: [{ loader: 'babel-loader', options: babelConfig }],
+        exclude: join(__dirname, '..', 'node_modules'),
+        include: join(__dirname, '..', 'app'),
+        use: [{ loader: 'react-hot-loader/webpack' }, { loader: 'babel-loader', options: babelConfig }],
       },
+      // {
+      //   test:/\.js$/,
+      //   use: [ 'react-hot-loader' ],
+      //   include: join(__dirname, '..', 'app')
+      // },
       {
         test: /\.css$/,
         use: [
@@ -48,7 +54,7 @@ module.exports = {
           {
             loader: 'postcss-loader',
             options: {
-              config: { path: path.join(__dirname, 'postcss.config.js') }
+              config: { path: join(__dirname, 'postcss.config.js') }
             }
           }
         ]

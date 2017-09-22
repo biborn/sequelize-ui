@@ -1,12 +1,12 @@
 import React from 'react'
 import { Demo, ErrorView, Home } from 'views'
-import { actions } from 'state'
+import { boundActions } from 'state'
 
 export default [
   {
     path: '/demo',
     action: () => {
-      actions.demo.incrementCounter()
+      boundActions.demo.incrementCounter()
       return  <Demo />
     }
   },

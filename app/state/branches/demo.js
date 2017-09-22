@@ -4,7 +4,7 @@ const RESET_COUNTER = 'RESET_COUNTER'
 
 const initialState = { counterValue: 0 }
 
-export const actions = {
+const actionCreators = {
   incrementCounter: () => ({
     type: INCREMENT_COUNTER
   }),
@@ -28,4 +28,4 @@ const handler = {
   })
 }
 
-export default { initialState, handler }
+export default { initialState, handler, actionCreators }

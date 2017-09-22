@@ -1,18 +1,34 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import {
+  createStore,
+  combineReducers,
+  applyMiddleware,
+  bindActionCreators
+} from 'redux'
 import thunk from 'redux-thunk'
+import { rootReducer, actionCreators } from './branches'
 
-import * as branches from './branches'
+let middleware = [thunk]
+if (process.env.NODE_ENV === 'development') {
+  const { logger } = require('redux-logger')
+  middleware = [...middleware, logger]
+}
 
-const createReducer = ({ initialState, handler }) =>
- (state = initialState, action) => (
-   handler[action.type] ? handler[action.type](state, action) : state
- )
+const store = createStore(
+  combineReducers(rootReducer),
+  applyMiddleware(...middleware)
+)
 
-const reducers = Object.keys(branches).reduce((acc, branch) => ({
-  ...acc, [branch]: createReducer(branches[branch])
+if (module.hot) {
+  // Enable Webpack hot module replacement for reducers
+  module.hot.accept('./branches', () => {
+    const nextReducer = combineReducers(require('./branches').rootReducer)
+    store.replaceReducer(nextReducer)
+  });
+}
+
+const boundActions = Object.keys(actionCreators).reduce((acc, branch) => ({
+  ...acc, [branch]: bindActionCreators(actionCreators[branch], store.dispatch)
 }), {})
 
-const middlewares = applyMiddleware(thunk)
-
-export default createStore(combineReducers(reducers), middlewares)
-
+export { actionCreators, boundActions }
+export default store

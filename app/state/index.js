@@ -1,10 +1,9 @@
 import { connect } from 'react-redux'
-import store from './store'
-import actions from './actions'
+import store, { actionCreators, boundActions } from './store'
 
-const allActions = Object.values(actions).reduce((acc, curr) => ({
+const allActions = Object.values(actionCreators).reduce((acc, curr) => ({
   ...acc, ...curr
 }), {})
 
 const connectAll = connect(state => state, allActions)
-export { store, actions, connectAll }
+export { store, actionCreators, boundActions,  connectAll }

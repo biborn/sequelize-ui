@@ -14,7 +14,7 @@ export class Link extends React.Component {
       !(evt.metaKey || evt.altKey || evt.ctrlKey || evt.shiftKey)
 
     if (isValidClick) {
-      event.preventDefault()
+      evt.preventDefault()
       if (replace) {
         history.replace(to)
       } else {
